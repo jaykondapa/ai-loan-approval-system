@@ -1,0 +1,14 @@
+{
+    "model_name": "Tuned Gradient Boosting",
+    "training_date": "2026-07-09 13:15:45",
+    "train_split": "80%",
+    "validation_split": "10%",
+    "test_split": "10%",
+    "metrics": {
+        "accuracy": 0.78,
+        "precision": 0.7699,
+        "recall": 0.78,
+        "f1_score": 0.769,
+        "roc_auc": 0.8276
+    }
+}
