@@ -12,6 +12,40 @@ The project combines **Machine Learning**, **FastAPI**, and **React** to simulat
 
 # Demo
 
+## Application
+
+![Home](assets/screenshots/home-page.png)
+
+---
+
+## Approved Loan Prediction
+
+![Approved](assets/screenshots/approved-loan.png)
+
+---
+
+## Rejected Loan Prediction
+
+![Rejected](assets/screenshots/rejected-loan.png)
+
+---
+
+## FastAPI API Documentation
+
+![Swagger](assets/screenshots/swagger-api.png)
+
+---
+
+## Model ROC Curve
+
+![ROC](assets/screenshots/model-performance.png)
+
+---
+
+## Feature Importance
+
+![Feature Importance](assets/screenshots/feature-importance.png)
+
 ### Features
 
 - Predict loan approval using Machine Learning
