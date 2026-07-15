@@ -53,3 +53,6 @@ DISPLAY_NAME_MAP = {
     "telephone_available": "Telephone Available",
     "foreign_worker": "Foreign Worker",
 }
+
+OLLAMA_BASE_URL = "http://localhost:11434"
+OLLAMA_MODEL = "gemma3"

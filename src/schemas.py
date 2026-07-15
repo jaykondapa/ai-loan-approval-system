@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -33,6 +35,31 @@ class LoanApplication(BaseModel):
     telephone_available: int = Field(2, ge=1, le=2)
     foreign_worker: int = Field(1, ge=1, le=2)
 
+class LoanOfficerSummary(BaseModel):
+    model_decision: str
+    approval_probability: float
+    risk_probability: float
+    risk_level: str
+    confidence: str
+
+    requested_loan_amount: int
+    requested_duration_months: int
+
+    loan_purpose: str
+    checking_account: str
+    savings_account: str
+    credit_history: str
+    employment_duration: str
+    existing_credits: str
+    housing: str
+    property: str
+    job: str
+
+
+class AIExplanation(BaseModel):
+    customer_message: str
+    loan_officer_summary: LoanOfficerSummary
+
 
 class PredictionResponse(BaseModel):
     prediction: int
@@ -41,5 +68,8 @@ class PredictionResponse(BaseModel):
     risk_probability: float
     risk_level: str
     confidence: str
+
     model_name: str
     prediction_time_ms: float
+
+    ai_explanation: Optional[AIExplanation] = None

@@ -1,3 +1,7 @@
+import CustomerMessage from "./CustomerMessage";
+import LoanOfficerSummary from "./LoanOfficerSummary";
+
+
 function PredictionCard({ result }) {
   if (!result) {
     return (
@@ -60,6 +64,18 @@ function PredictionCard({ result }) {
       <div className="model-details">
         Model used: <strong>{result.model_name}</strong>
       </div>
+      
+      {result.ai_explanation && (
+        <>
+          <CustomerMessage
+            message={result.ai_explanation.customer_message}
+          />
+
+          <LoanOfficerSummary
+            summary={result.ai_explanation.loan_officer_summary}
+          />
+        </>
+      )}
 
       <p className="disclaimer">
         This result is generated for demonstration purposes and should not be

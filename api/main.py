@@ -1,8 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+
+from src.llm_service import LLMServiceError, generate_decision_content
 
 from src.schemas import LoanApplication, PredictionResponse
 from src.predictor import predict_loan, load_model_metadata
+
+from src.loan_officer_summary import build_loan_officer_summary
 
 
 
@@ -47,3 +51,33 @@ def model_info():
 def predict(application: LoanApplication):
     application_data = application.model_dump()
     return predict_loan(application_data)
+
+@app.post( "/predict-with-explanation", response_model=PredictionResponse)
+def predict_with_explanation(application: LoanApplication):
+    application_data = application.model_dump()
+
+    prediction = predict_loan(application_data)
+
+    try:
+        generated_content = generate_decision_content(
+            application=application_data,
+            prediction=prediction,
+        )
+    except LLMServiceError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail=str(exc),
+        ) from exc
+
+    loan_officer_summary = build_loan_officer_summary(
+        application=application_data,
+        prediction=prediction,
+    )
+
+    return {
+        **prediction,
+        "ai_explanation": {
+            "customer_message": generated_content["customer_message"],
+            "loan_officer_summary": loan_officer_summary,
+        },
+    }

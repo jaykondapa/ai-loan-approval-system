@@ -41,3 +41,21 @@ export async function getModelInfo() {
 
   return handleResponse(response, "Unable to load model information.");
 }
+
+export async function predictLoanWithExplanation(application) {
+  const response = await fetch(
+    `${API_BASE_URL}/predict-with-explanation`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(application),
+    }
+  );
+
+  return handleResponse(
+    response,
+    "Unable to generate the loan assessment."
+  );
+}

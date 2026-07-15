@@ -3,9 +3,9 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LoanForm, { initialFormData } from "./components/LoanForm";
-import PredictionCard from "./components/PredictionCard";
 import LoadingSpinner from "./components/LoadingSpinner";
-import { predictLoan } from "./services/api";
+import ResultPage from "./components/ResultPage";
+import { predictLoanWithExplanation } from "./services/api";
 
 import "./App.css";
 
@@ -20,18 +20,17 @@ function App() {
 
     setLoading(true);
     setError("");
-    setPrediction(null);
 
     try {
-      const result = await predictLoan(formData);
+      const result = await predictLoanWithExplanation(formData);
       setPrediction(result);
     } catch (requestError) {
       console.error(requestError);
-      setPrediction(null);
 
+      setPrediction(null);
       setError(
         requestError.message ||
-          "Unable to complete the prediction. Please try again."
+          "Unable to complete the assessment. Please try again."
       );
     } finally {
       setLoading(false);
@@ -39,29 +38,72 @@ function App() {
   };
 
   const handleReset = () => {
+    setFormData(initialFormData);
     setPrediction(null);
     setError("");
   };
+
+  const handleStartNew = () => {
+    setFormData(initialFormData);
+    setPrediction(null);
+    setError("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (loading) {
+    return (
+      <div className="app-shell">
+        <Header />
+
+        <main className="full-page-state">
+          <LoadingSpinner />
+        </main>
+
+        <Footer />
+      </div>
+    );
+  }
+
+  if (prediction) {
+    return (
+      <div className="app-shell">
+        <Header />
+
+        <main className="page-content result-page-content">
+          <ResultPage
+            result={prediction}
+            onStartNew={handleStartNew}
+          />
+        </main>
+
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="app-shell">
       <Header />
 
-      <main className="page-content">
-        <div className="intro-panel">
-          <div>
-            <p className="section-label">Credit Risk Decision Support</p>
-            <h2>Evaluate an applicant using machine learning</h2>
+      <main className="page-content landing-page-content">
+        <section className="intro-panel centered-panel">
+          <div className="intro-copy">
+            <p className="section-label">
+              Credit Risk Decision Support
+            </p>
+
+            <h2>
+              Evaluate an applicant using machine learning
+            </h2>
+
+            <p>
+              Enter the applicant&apos;s financial and personal information to
+              receive a preliminary credit-risk assessment.
+            </p>
           </div>
+        </section>
 
-          <p>
-            Enter the applicant&apos;s financial and personal information to
-            receive a credit-risk prediction from the tuned Gradient Boosting
-            model.
-          </p>
-        </div>
-
-        <div className="application-layout">
+        <section className="form-container">
           <LoanForm
             formData={formData}
             setFormData={setFormData}
@@ -69,17 +111,13 @@ function App() {
             onReset={handleReset}
             loading={loading}
           />
+        </section>
 
-          <aside className="results-column">
-            {loading ? (
-              <LoadingSpinner />
-            ) : (
-              <PredictionCard result={prediction} />
-            )}
-
-            {error && <div className="error-message">{error}</div>}
-          </aside>
-        </div>
+        {error && (
+          <div className="error-message form-error-message">
+            {error}
+          </div>
+        )}
       </main>
 
       <Footer />

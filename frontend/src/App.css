@@ -27,19 +27,25 @@ button {
 }
 
 .header {
-  padding: 28px max(24px, calc((100vw - 1400px) / 2));
+  width: 100%;
+  padding: 28px 24px;
   color: white;
+  text-align: center;
   background: linear-gradient(120deg, #102a43, #176b87);
 }
 
 .header h1 {
   margin: 0;
-  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .header p {
   margin: 8px 0 0;
   color: #dceaf1;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 .page-content {
@@ -378,4 +384,274 @@ button:disabled {
 
 .slider-range {
   color: #718096;
+}
+
+.customer-message-card,
+.loan-officer-card {
+  padding: 18px;
+  margin-top: 18px;
+  background: #f8fafc;
+  border: 1px solid #e1e8ee;
+  border-radius: 12px;
+}
+
+.customer-message-card h3,
+.loan-officer-card h3 {
+  margin: 5px 0 12px;
+}
+
+.customer-message-card > p:last-child {
+  margin: 0;
+  color: #405467;
+  line-height: 1.65;
+}
+
+.summary-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.internal-badge {
+  padding: 6px 10px;
+  color: #5a3a09;
+  background: #fff0c7;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.summary-section {
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid #e1e8ee;
+}
+
+.summary-section h4 {
+  margin: 0 0 12px;
+  color: #243b53;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.summary-item {
+  padding: 12px;
+  background: white;
+  border: 1px solid #e3e9ee;
+  border-radius: 9px;
+}
+
+.summary-item span {
+  display: block;
+  color: #718096;
+  font-size: 0.75rem;
+}
+
+.summary-item strong {
+  display: block;
+  margin-top: 5px;
+  color: #243b53;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 680px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.full-page-state {
+  display: grid;
+  min-height: 65vh;
+  place-items: center;
+  padding: 40px 20px;
+}
+
+.result-page {
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.result-message-card,
+.internal-details-panel {
+  background: white;
+  border: 1px solid #dce4ec;
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(16, 42, 67, 0.08);
+}
+
+.result-message-card {
+  padding: clamp(28px, 5vw, 52px);
+  text-align: center;
+}
+
+.result-message-card h1 {
+  max-width: 720px;
+  margin: 18px auto 16px;
+  color: #243b53;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.18;
+}
+
+.customer-result-message {
+  max-width: 680px;
+  margin: 0 auto;
+  color: #536779;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.result-button {
+  width: auto;
+  min-width: 190px;
+  margin-top: 0;
+}
+
+.internal-details-panel {
+  padding: 30px;
+  margin-top: 24px;
+}
+
+.details-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.details-header h2 {
+  margin: 5px 0 0;
+}
+
+.details-section {
+  padding-top: 24px;
+  margin-top: 24px;
+  border-top: 1px solid #e1e8ee;
+}
+
+.details-section h3 {
+  margin: 0 0 16px;
+  color: #243b53;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.details-table {
+  overflow: hidden;
+  border: 1px solid #e1e8ee;
+  border-radius: 12px;
+}
+
+.details-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 16px;
+  background: white;
+  border-bottom: 1px solid #e8edf2;
+}
+
+.details-grid .details-row {
+  display: block;
+  border: 1px solid #e1e8ee;
+  border-radius: 10px;
+}
+
+.details-table .details-row:last-child {
+  border-bottom: 0;
+}
+
+.details-row span {
+  color: #718096;
+  font-size: 0.82rem;
+}
+
+.details-row strong {
+  color: #243b53;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.details-grid .details-row strong {
+  display: block;
+  margin-top: 6px;
+  text-align: left;
+}
+
+@media (max-width: 680px) {
+  .result-actions,
+  .details-header {
+    flex-direction: column;
+  }
+
+  .result-button {
+    width: 100%;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .details-row strong {
+    text-align: left;
+  }
+}
+
+.landing-page-content,
+.result-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.centered-panel,
+.form-container,
+.form-error-message {
+  width: min(920px, 100%);
+}
+
+.intro-copy {
+  width: 100%;
+  text-align: center;
+}
+
+.intro-copy h2 {
+  margin: 8px 0 12px;
+}
+
+.intro-copy > p:last-child {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-container .loan-form {
+  width: 100%;
 }
