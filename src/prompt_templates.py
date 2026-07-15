@@ -2,6 +2,8 @@ import json
 
 from src.explanation_mapping import build_readable_application
 
+from src.rag_service import format_retrieved_policies
+
 
 SYSTEM_PROMPT = """
 You generate loan-assessment communication for two separate audiences:
@@ -32,8 +34,12 @@ Rules:
 def build_decision_prompt(
     application: dict,
     prediction: dict,
+    retrieved_policies: list[dict],
 ) -> str:
     readable_application = build_readable_application(application)
+    policy_context = format_retrieved_policies(
+    retrieved_policies
+    )
 
     return f"""
 Generate communication for the following preliminary credit-risk assessment.
@@ -47,6 +53,16 @@ Approval probability: {prediction["approval_probability"]}
 Risk probability: {prediction["risk_probability"]}
 Risk level: {prediction["risk_level"]}
 Confidence: {prediction["confidence"]}
+
+RETRIEVED DEMONSTRATION POLICIES:
+{policy_context}
+
+POLICY USAGE RULES:
+- Treat the retrieved policies as the source of truth for customer communication.
+- Follow only policies relevant to the supplied preliminary assessment.
+- Do not invent institutional policies that are absent from the retrieved context.
+- If the prompt instructions and retrieved policies appear inconsistent,
+  follow the stricter safety requirement.
 
 CUSTOMER MESSAGE RULES:
 - Write a professional customer-facing update of 3 to 5 sentences.

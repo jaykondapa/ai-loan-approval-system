@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RAGDetails from "./RAGDetails";
 
 function SummaryRow({ label, value }) {
   return (
@@ -15,6 +16,8 @@ function ResultPage({ result, onStartNew }) {
   const approved = result.decision === "Approved";
   const summary = result.ai_explanation?.loan_officer_summary;
   const customerMessage = result.ai_explanation?.customer_message;
+
+  const ragMetadata = result.rag_metadata;
 
   return (
     <section className="result-page">
@@ -176,6 +179,9 @@ function ResultPage({ result, onStartNew }) {
               />
             </div>
           </div>
+          
+          <RAGDetails ragMetadata={ragMetadata} />
+
         </div>
       )}
     </section>

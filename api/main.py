@@ -80,4 +80,5 @@ def predict_with_explanation(application: LoanApplication):
             "customer_message": generated_content["customer_message"],
             "loan_officer_summary": loan_officer_summary,
         },
+        "rag_metadata": generated_content["rag_metadata"],
     }

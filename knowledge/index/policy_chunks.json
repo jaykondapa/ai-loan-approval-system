@@ -1,0 +1,37 @@
+{
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_size_words": 90,
+  "chunk_overlap_words": 20,
+  "chunks": [
+    {
+      "id": "customer_communication-1",
+      "source": "customer_communication.md",
+      "text": "# Customer Communication Policy These rules apply to customer-facing preliminary loan-assessment messages in this demonstration application. Customer messages must be clear, respectful, concise, and understandable to a non-technical audience. Messages may identify whether an application received a favorable or unfavorable preliminary assessment. For favorable preliminary assessments, the message may use warm language such as \"Congratulations\" or \"You are one step closer,\" provided that the wording does not imply final approval, guaranteed financing, confirmed funding, or approved loan terms. For unfavorable preliminary assessments, the message must use respectful and neutral language."
+    },
+    {
+      "id": "customer_communication-2",
+      "source": "customer_communication.md",
+      "text": "guaranteed financing, confirmed funding, or approved loan terms. For unfavorable preliminary assessments, the message must use respectful and neutral language. It must not imply that submitting additional documents or information is likely to reverse the assessment unless the workflow explicitly states that additional information is required. Customer messages must not mention machine learning, artificial intelligence, algorithms, model names, probabilities, confidence levels, or risk scores. Messages must not expose sensitive applicant attributes, including age, sex, marital status, personal status, or foreign-worker status."
+    },
+    {
+      "id": "preliminary_assessment-1",
+      "source": "preliminary_assessment.md",
+      "text": "# Preliminary Assessment Workflow Policy The credit-risk model produces a preliminary decision-support result only. A favorable preliminary assessment is not a final loan approval. An unfavorable preliminary assessment is not presented as a final legal or lending decision. The system does not determine or confirm: - approved loan amount; - interest rate; - repayment schedule; - funding date; - loan product; - final lending terms. For favorable preliminary assessments, customer communication may explain that submitted information could be verified and that supporting documentation may be requested before a final decision."
+    },
+    {
+      "id": "preliminary_assessment-2",
+      "source": "preliminary_assessment.md",
+      "text": "communication may explain that submitted information could be verified and that supporting documentation may be requested before a final decision. For unfavorable preliminary assessments, customer communication should state that the application did not receive a favorable preliminary assessment and that further communication will follow if required. The message must not promise that the institution will provide financing."
+    },
+    {
+      "id": "unsupported_claims-1",
+      "source": "unsupported_claims.md",
+      "text": "# Unsupported Claims and Institutional Promises Customer communication must not invent facts, policies, timelines, products, or actions that are not supplied by the application workflow. Unsupported claims include: - stating that customer information will be retained for future opportunities; - promising contact within a specific number of hours or days; - claiming that additional products will be offered; - promising that funds will be issued; - stating that requested loan terms were approved; - claiming that supporting documents will change an unfavorable assessment; - inventing an interest rate or repayment"
+    },
+    {
+      "id": "unsupported_claims-2",
+      "source": "unsupported_claims.md",
+      "text": "terms were approved; - claiming that supporting documents will change an unfavorable assessment; - inventing an interest rate or repayment schedule; - claiming that income, credit score, savings, employment, property, or another feature caused the decision. The system may state that the institution will communicate further if required or after the review process concludes. The system must distinguish submitted applicant facts from the model result."
+    }
+  ]
+}

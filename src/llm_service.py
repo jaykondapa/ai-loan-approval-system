@@ -5,6 +5,12 @@ import requests
 from src.config import OLLAMA_BASE_URL, OLLAMA_MODEL
 from src.prompt_templates import SYSTEM_PROMPT, build_decision_prompt
 
+from src.explanation_mapping import build_readable_application
+from src.rag_service import (
+    RAGServiceError,
+    retrieve_communication_policies,
+)
+
 
 class LLMServiceError(RuntimeError):
     """Raised when the local LLM service cannot generate a valid response."""
@@ -14,7 +20,27 @@ def generate_decision_content(
     application: dict,
     prediction: dict,
 ) -> dict:
-    prompt = build_decision_prompt(application, prediction)
+    readable_application = build_readable_application(
+    application
+    )
+
+    try:
+        retrieval_result = retrieve_communication_policies(
+            model_decision=prediction["decision"],
+            loan_purpose=readable_application["loan_purpose"],
+            top_k=3,
+        )
+        retrieved_policies = retrieval_result["policies"]
+    except RAGServiceError as exc:
+        raise LLMServiceError(
+            "Unable to retrieve customer communication policies."
+        ) from exc
+
+    prompt = build_decision_prompt(
+    application=application,
+    prediction=prediction,
+    retrieved_policies=retrieved_policies,
+    )
 
     payload = {
         "model": OLLAMA_MODEL,
@@ -72,4 +98,15 @@ def generate_decision_content(
         raise LLMServiceError(
             "The LLM returned an invalid customer message."
         )
-    return generated_content
+    return {
+        "customer_message": generated_content["customer_message"],
+        "rag_metadata": {
+            "query": retrieval_result["query"],
+            "retrieved_count": retrieval_result["retrieved_count"],
+            "total_indexed_chunks": retrieval_result[
+                "total_indexed_chunks"
+            ],
+            "embedding_model": retrieval_result["embedding_model"],
+            "policies": retrieved_policies,
+        },
+    }

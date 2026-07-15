@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -60,6 +60,19 @@ class AIExplanation(BaseModel):
     customer_message: str
     loan_officer_summary: LoanOfficerSummary
 
+class RetrievedPolicy(BaseModel):
+    id: str
+    source: str
+    text: str
+    score: float
+
+
+class RAGMetadata(BaseModel):
+    query: str
+    retrieved_count: int
+    total_indexed_chunks: int
+    embedding_model: str
+    policies: List[RetrievedPolicy]
 
 class PredictionResponse(BaseModel):
     prediction: int
@@ -73,3 +86,4 @@ class PredictionResponse(BaseModel):
     prediction_time_ms: float
 
     ai_explanation: Optional[AIExplanation] = None
+    rag_metadata: Optional[RAGMetadata] = None
